@@ -9,11 +9,13 @@ export default class App extends Component {
                  newsData: [],
                  newsPillarCounts: {} };
 
-    this.getNewsPillarCounts=this.getNewsPillarCounts.bind(this);
+    this.getNewsFromTheNews=this.getNewsFromTheNews.bind(this);
+    this.getGuardianNewsPillarCounts=this.getGuardianNewsPillarCounts.bind(this);
+    this.getNewsFromTheGuardian=this.getNewsFromTheGuardian.bind(this);
   }
 
   //fill this.state.newsPillarCounts with an object of counts of pillars (news type)
-  getNewsPillarCounts() {
+  getGuardianNewsPillarCounts() {
     if (!this.state.newsDataAvailable) {  //no news data to check
       return; 
     }
@@ -30,8 +32,21 @@ export default class App extends Component {
       Object.assign(this.state.newsPillarCounts, countObj); //merge the counter object to existing counters
     }
   }
-  
-  componentDidMount() {
+
+  getNewsFromTheNews() {
+    let url = 'http://newsapi.org/v2/top-headlines?' +
+    'country=us&' +
+    'apiKey=61577a5ea94f409d90a90d889d581ec1';
+
+    let req = new Request(url);
+    fetch(req)
+    .then(function(response) {
+      console.log(response.json());
+    })
+  }
+
+  getNewsFromTheGuardian() {
+    
     fetch("https://content.guardianapis.com/search?number=4&api-key=66e07eb6-9651-459d-a349-2d24533858b7")
       .then(response => response.json()) // first response => resolved
       .then(
@@ -44,12 +59,17 @@ export default class App extends Component {
           })
 
 
-          this.getNewsPillarCounts();
+          this.getGuardianNewsPillarCounts();
           console.log("news data:",this.state.newsData);
           console.log("news pillar counts:",this.state.newsPillarCounts);
         }
       ).catch(e => console.log("there's a error", e))
+  }
+  
+  componentDidMount() {
 
+    //Get news from both API
+    this.getNewsFromTheGuardian();
   }
 
   render() {
