@@ -1,29 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import Archives from './components/Archives';
-import imageStore from './components/ImagesStore';
-import NewsComposer from './components/NewsComposer';
+import MediumCard from './components/MediumCard'
 
 export default class App extends Component {
   constructor(props) {
     super(props)
 
     this.state={ newsDataAvailable: true,   //start with archived data. 
-                 newsData: Archives,        //news archives stores previous news to overcome the 10 items limit per request
+                 newsData: [],
+                 newsCards: [],
+      //    newsData: Archives,        //news archives stores previous news to overcome the 10 items limit per request
                  newsPillarCounts: {} };
 
 // this.getNewsFromTheNews=this.getNewsFromTheNews.bind(this);
     this.getGuardianNewsPillarCounts=this.getGuardianNewsPillarCounts.bind(this);
     this.getNewsFromTheGuardian=this.getNewsFromTheGuardian.bind(this);
-    this.pickAnImage=this.pickAnImage.bind(this);
-  }
-
-  pickAnImage() { //return an image randomly and remove from imageStore
-      let idx=Math.floor(Math.random(imageStore.length));
-      let pickedImage=imageStore[idx];
-      imageStore.splice(idx, 1);      //remove selected image from imageStore
-
-      return pickedImage;
   }
 
 //fill this.state.newsPillarCounts with an object of counts of pillars (news type)
@@ -67,8 +59,12 @@ export default class App extends Component {
 
           this.setState({
             newsDataAvailable: true,
-            newsData: this.state.newsData.concat(result.response.results)
+  newsData: this.state.newsData.concat(result.response.results.slice(0,6))  //take only 2 elem for now
+
+//            newsData: this.state.newsData.concat(result.response.results)
           })
+          const cards=this.state.newsData.map(MediumCard);
+          this.setState({newsCards: cards});
 
           this.getGuardianNewsPillarCounts();
           console.log("news data:",this.state.newsData);
@@ -87,7 +83,10 @@ export default class App extends Component {
   render() {
       return (
         <div className="App">
-            <NewsComposer news={this.state.newsData} />
+          <div className="NewsPageContainer">
+           {this.state.newsCards}
+
+          </div>
         </div>
       );
     }

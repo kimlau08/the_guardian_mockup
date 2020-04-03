@@ -1,31 +1,27 @@
 import React, { Component } from 'react';
 import '../App.css';
+import imageStore from './ImagesStore';
 
-export default class MediumCard extends Component {
-    constructor(props) {
-        super(props);
+function pickAnImage() { //return an image randomly and remove from imageStore
+    let idx=Math.floor(Math.random(imageStore.length));
+    let pickedImage=imageStore[idx];
+    imageStore.splice(idx, 1);      //remove selected image from imageStore
 
-        this.state={
-            imagePath : this.props.imagePath,
-            headline : this.props.headline,
+    return pickedImage;
+}
 
-/* ???????????????????????????????? */ 
-            stanfirst: "",
-            highlight: "",
-            media: ""
-        }
-    }
+export default function MediumCard(props) {
 
-    render() {
-        return (
-            <div className='mediumCardContainer'>
-                <div className='mediumCardImgBox'>
-                    <img className='mediumCardImg' src={this.state.imagePath} />
-                </div>
-                <div className='mediumCardHeadlineBox'>
-                    <p>{this.state.headline}</p>
-                </div>
+    let newsImg=pickAnImage();
+
+    return (
+        <div className='mediumCardContainer'>
+            <div className='mediumCardImgBox'>
+                <img className='mediumCardImg' src={newsImg} />
             </div>
-        )
-    }
+            <div className='mediumCardHeadlineBox'>
+                <p>{props.webTitle}</p>
+            </div>
+        </div>
+    )
 }
