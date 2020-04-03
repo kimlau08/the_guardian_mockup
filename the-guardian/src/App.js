@@ -10,12 +10,18 @@ export default class App extends Component {
     this.state={ newsDataAvailable: true,   //start with archived data. 
                  newsData: [],
                  newsCards: [],
+                 mediumCards: [],
+                 smallCards: [],
       //    newsData: Archives,        //news archives stores previous news to overcome the 10 items limit per request
                  newsPillarCounts: {} };
 
 // this.getNewsFromTheNews=this.getNewsFromTheNews.bind(this);
     this.getGuardianNewsPillarCounts=this.getGuardianNewsPillarCounts.bind(this);
     this.getNewsFromTheGuardian=this.getNewsFromTheGuardian.bind(this);
+  }
+
+  determineCardType() {
+
   }
 
 //fill this.state.newsPillarCounts with an object of counts of pillars (news type)
@@ -64,7 +70,7 @@ export default class App extends Component {
 //            newsData: this.state.newsData.concat(result.response.results)
           })
           const cards=this.state.newsData.map(MediumCard);
-          this.setState({newsCards: cards});
+          this.setState({mediumCards: cards});
 
           this.getGuardianNewsPillarCounts();
           console.log("news data:",this.state.newsData);
@@ -84,7 +90,7 @@ export default class App extends Component {
       return (
         <div className="App">
           <div className="NewsPageContainer">
-           {this.state.newsCards}
+           {this.state.mediumCards}
 
           </div>
         </div>
