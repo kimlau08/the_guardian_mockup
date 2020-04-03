@@ -2,12 +2,29 @@ import React, { Component } from 'react';
 import '../App.css';
 
 export default function SmallCard(props) {
-
-    return (
-        <div className='smallCardContainer'>
-            <div className='smallCardHeadlineBox'>
-                <p>{props.webTitle}</p>
-            </div>
-        </div>
-    )
+    //props is an array of 1 or 2 small news items
+    switch (props.length) {
+        case 1:
+            // Case of array of 1 small news items
+            return (
+                <div className='smallCardContainer'>
+                    <div className='smallCardHeadlineBox'>
+                        <p>{props[0].webTitle}</p>
+                    </div>
+                </div>
+            ) 
+        case 2:
+            // case of array of 2 small news items
+            return (
+                <div className='smallCardContainer'>
+                    <div className='smallCardHeadlineBox'>
+                        <p>{props[0].webTitle}</p>
+                    </div>
+                    <div className='smallCardHeadlineBox'>
+                        <p>{props[1].webTitle}</p>
+                    </div>
+                </div>
+            )
+        default:
+    }
 }

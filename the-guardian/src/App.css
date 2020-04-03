@@ -49,7 +49,7 @@ border: solid pink;
 
 .smallCardContainer {
     width: auto; 
-    height: calc(110px * 1);
+    height: calc(110px * 2);
 
     display: flex;
     flex-direction: column;
@@ -58,36 +58,13 @@ border: solid pink;
 border:solid  deepskyblue;
 }
     .smallCardHeadlineBox {
+        margin-top: -10px;
         width: 100%;
         height: 50%;
         font-size: 14px;
         color: black;
 border: solid pink;
     }
-
-
-/* .NewsPageContainer {
-    margin: 0 auto;
-    width: calc(60px * 14 + 20px * 13);
-    height: auto;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    grid-gap: 20px;
-    grid-template-rows: repeat(auto-fill, 110px);
-border: solid greenyellow;
-}
-
-    .mediumCardContainer {
-        width: calc(60px * 3 + 20px * 2); 
-        height: calc(110px * 2);
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-border: solid blueviolet;
-    } */
 
 
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Archives from './components/Archives';
-import MediumCard from './components/MediumCard'
+import MediumCard from './components/MediumCard';
+import SmallCard from './components/SmallCard';
 
 export default class App extends Component {
   constructor(props) {
@@ -18,10 +19,39 @@ export default class App extends Component {
 // this.getNewsFromTheNews=this.getNewsFromTheNews.bind(this);
     this.getGuardianNewsPillarCounts=this.getGuardianNewsPillarCounts.bind(this);
     this.getNewsFromTheGuardian=this.getNewsFromTheGuardian.bind(this);
+    this.determineNewsCardTypes=this.determineNewsCardTypes.bind(this);
   }
 
-  determineCardType() {
+  determineNewsCardTypes(newsItems) {
+    //arbitrarily decide the card type for news data, using a medium:small rate of 1:2
+    let mediumCardRate=0.5;
+    let smallCardRate=1-mediumCardRate;
 
+    let mediumCardCnt=Math.floor(newsItems.length*mediumCardRate);
+    let smallCardCnt=Math.floor(newsItems.length*smallCardRate);
+
+    //Fill state with medium cards and small cards 
+    //each medium cards fill one container.
+    let medNews=[]; let smNews=[];
+    let i=0;
+    for ( ; i<mediumCardCnt; i++) {
+      medNews.push(newsItems[i]);
+    }
+    //2 small cards fill one container. So each elem in smNews is an array of 1 to 2 small news items.
+    let j=0;
+    for ( ; i<newsItems.length; i=i+2) {
+      smNews[j]=[ newsItems[i] ];  //create each smNews elem is an array of small news items
+      if (i+1 <newsItems.length) {
+        smNews[j]=smNews[j].concat([ newsItems[i+1] ]);  //add the 2nd small news items
+      }
+      j++;
+    }
+
+    const medCards=medNews.map(MediumCard);
+    const smCards=smNews.map(SmallCard);
+    this.setState({mediumCards: medCards});
+    this.setState({smallCards: smCards});
+    
   }
 
 //fill this.state.newsPillarCounts with an object of counts of pillars (news type)
@@ -67,10 +97,12 @@ export default class App extends Component {
             newsDataAvailable: true,
   newsData: this.state.newsData.concat(result.response.results.slice(0,6))  //take only 2 elem for now
 
-//            newsData: this.state.newsData.concat(result.response.results)
+//  newsData: this.state.newsData.concat(result.response.results)
           })
-          const cards=this.state.newsData.map(MediumCard);
-          this.setState({mediumCards: cards});
+
+          this.determineNewsCardTypes(this.state.newsData);
+  // const cards=this.state.newsData.map(MediumCard);
+  // this.setState({mediumCards: cards});
 
           this.getGuardianNewsPillarCounts();
           console.log("news data:",this.state.newsData);
@@ -91,6 +123,7 @@ export default class App extends Component {
         <div className="App">
           <div className="NewsPageContainer">
            {this.state.mediumCards}
+    {this.state.smallCards}
 
           </div>
         </div>
