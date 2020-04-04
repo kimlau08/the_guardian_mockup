@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import imageStore from './ImagesStore';
 
-function pickAnImage() { //return an image randomly and remove from imageStore
+export function pickAnImage() { //return an image randomly and remove from imageStore
     let idx=Math.floor(Math.random(imageStore.length));
     let pickedImage=imageStore[idx];
     imageStore.splice(idx, 1);      //remove selected image from imageStore

@@ -9,6 +9,7 @@ export default function SmallCard(props) {
             return (
                 <div className='smallCardContainer'>
                     <div className='smallCardHeadlineBox'>
+                        <hr className='newsItemLine' noshade />
                         <p>{props[0].webTitle}</p>
                     </div>
                 </div>
@@ -18,9 +19,11 @@ export default function SmallCard(props) {
             return (
                 <div className='smallCardContainer'>
                     <div className='smallCardHeadlineBox'>
+                        <hr className='newsItemLine' noshade />
                         <p>{props[0].webTitle}</p>
                     </div>
                     <div className='smallCardHeadlineBox'>
+                        <hr className='newsItemLine' noshade />
                         <p>{props[1].webTitle}</p>
                     </div>
                 </div>
