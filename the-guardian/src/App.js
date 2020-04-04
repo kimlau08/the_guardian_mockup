@@ -11,36 +11,33 @@ export default class App extends Component {
     super(props)
 
     this.state={ newsDataAvailable: true,   //start with archived data. 
-                 largeFocusCards: [],
-                 smallFocusCards: [],
-                 articleCards: [],   //Used for actual rendering: For every 3 medium cards, put in 1 small card
-                //  mediumCards: [],
-                //  smallCards: [],
-                 newsData: Archives.splice(0, 20),        //news archives stores previous news to overcome the 10 items limit per request
+                 newsLargeFocusCards: [],
+                 newsSmallFocusCards: [],
+                 newsArticleCards: [],   //Used for actual rendering: For every 3 medium cards, put in 1 small card
+                 sportLargeFocusCards: [],
+                 sportSmallFocusCards: [],
+                 sportArticleCards: [],  
+                 artLargeFocusCards: [],
+                 artSmallFocusCards: [],
+                 artArticleCards: [],  
+                 newsData: Archives.slice(0, 30),        //news archives stores previous news to overcome the 10 items limit per request
                  newsPillarCounts: {},
                  newsDataByPillars: {},
-                 newsCardsByPillars: {} };
+                };
 
-// this.getNewsFromTheNews=this.getNewsFromTheNews.bind(this);
     this.sortGuardianNewsPillarandCount=this.sortGuardianNewsPillarandCount.bind(this);
     this.getNewsFromTheGuardian=this.getNewsFromTheGuardian.bind(this);
     this.determineNewsCardTypes=this.determineNewsCardTypes.bind(this);
     this.layoutNewsSection=this.layoutNewsSection.bind(this);
   }
 
-  determineNewsCardTypes(newsItems) {  //arbitrarily decide the card type for news data
+  determineNewsCardTypes(newsItems, pillarName) {  //arbitrarily decide the card type for news data
                                        //layout the cards calling each card component type
 
     //Each news section must have 1 large focus card and a small focus card.
     //   The rest are medium cards and small cards at a ratios of 3:1
 
     let newsItemCnt=newsItems.length;
-
-    let cardCollectionObj={         //collection of news cards to be returned
-                largeFocusCards: [],
-                smallFocusCards: [],
-                articleCards: [] 
-    };
 
     //Create focus cards only when there are sufficient news items
     if (newsItemCnt >= 6) {
@@ -58,12 +55,23 @@ export default class App extends Component {
       const smFocusCards=smFocusNews.map(SmallFocusCard);
 
 
-      cardCollectionObj.largeFocusCards=bigFocusCards;
-      cardCollectionObj.smallFocusCards=smFocusCards;
 
-      this.setState( {largeFocusCards: bigFocusCards} );
-      this.setState( {smallFocusCards: smFocusCards} );
-
+      switch (pillarName) {
+        case "News" :
+                this.setState( {newsLargeFocusCards: bigFocusCards} );
+                this.setState( {newsSmallFocusCards: smFocusCards} );
+              break;
+        case "Sport" :
+                this.setState( {sportLargeFocusCards: bigFocusCards} );
+                this.setState( {sportSmallFocusCards: smFocusCards} );
+          break;
+          case "Arts" :
+                this.setState( {artLargeFocusCards: bigFocusCards} );
+                this.setState( {artSmallFocusCards: smFocusCards} );
+           break;
+        default:
+          break        
+      }
     } 
 
     //The rest are medium cards and small cards. They are all layout in articles array
@@ -108,14 +116,21 @@ export default class App extends Component {
       }
      }
 
-     cardCollectionObj.articleCards=articles;
 
-     this.setState({articleCards: articles});
+     switch (pillarName) {
+      case "News" :
+              this.setState({newsArticleCards: articles});
 
-// this.setState( {mediumCards: medCards} );
-// this.setState( {smallCards: smCards} );
-
-     return cardCollectionObj;   //return an object containing an array for each card type
+            break;
+      case "Sport" :
+              this.setState({sportArticleCards: articles});
+        break;
+        case "Arts" :
+              this.setState({artArticleCards: articles});
+         break;
+      default:
+        break        
+    }
     
   }
 
@@ -129,16 +144,16 @@ export default class App extends Component {
     this.setState({newsPillarCounts: {}}); //initialize the counts
     this.setState({newsDataByPillars: {}}); //initialize the news items per pillar
 
+    let pCounts=this.state.newsPillarCounts;
+    let pNewsItems=this.state.newsDataByPillars;
     for (let i=0; i<this.state.newsData.length; i++) {
       let pName=this.state.newsData[i].pillarName;
-      let pCounts=this.state.newsPillarCounts;
-      let pNewsItems=this.state.newsDataByPillars;
 
       //Increment or add a new counter (initialized to 1)
-      let countObj=pName in pCounts ? {[pName] : this.state.newsPillarCounts[pName]+1 } : {[pName] : 1 };
+      let countObj=pName in pCounts ? {[pName] : pCounts[pName]+1 } : {[pName] : 1 };
       
       //Append to pillar news items or create a new pillar with array of 1 elem
-      let newsDataByPillarObj={}
+      let newsDataByPillarObj={};
       if (pName in pNewsItems) {
         newsDataByPillarObj = {[pName] : pNewsItems[pName] };
         newsDataByPillarObj[pName].push( this.state.newsData[i]);
@@ -146,30 +161,19 @@ export default class App extends Component {
         newsDataByPillarObj = {[pName] : [ this.state.newsData[i] ] };
       }
       
-      Object.assign(this.state.newsPillarCounts, countObj); //merge the counter object to existing counters in this.state.newsPillarCounts
-      Object.assign(this.state.newsDataByPillars, newsDataByPillarObj); //merge the pillar news items object to existing pillars in this.state.newsDataByPillars
+      Object.assign(pCounts, countObj); //merge the counter object to existing counters 
+      Object.assign(pNewsItems, newsDataByPillarObj); //merge the pillar news items object to existing pillars 
     }
+    this.setState({newsPillarCounts: pCounts}); //update the state
+    this.setState({newsDataByPillars: pNewsItems}); //update the state
   }
 
 
-// getNewsFromTheNews() {
-//   let url = 'http://newsapi.org/v2/top-headlines?' +
-//   'country=us&' +
-//   'apiKey=61577a5ea94f409d90a90d889d581ec1';
-
-//   let req = new Request(url);
-//   fetch(req)
-//   .then(function(response) {
-//     console.log("News from News API", response.json());
-//   })
-// }
-
   layoutNewsSection(pillarName) { //Layout all news cards for a given news pillar type
+    //Use static card state e.g. newsArticles, artsArticles, etc instead of an object containing all, due to async preference of JSX. Static state is updated and available for rendering. Dynamic objects is delayed and not updated in time for initial rendering
 
-    if (pillarName in this.state.newsDataByPillars) {
-      let cardsObj=this.determineNewsCardTypes(this.state.newsDataByPillars[pillarName]);
-      this.setState( {newsCardsByPillars: cardsObj } );
-    }
+    this.determineNewsCardTypes(this.state.newsDataByPillars[pillarName], pillarName)
+
   } 
 
   getNewsFromTheGuardian() {
@@ -182,8 +186,6 @@ export default class App extends Component {
 
           this.setState({
             newsDataAvailable: true,
-//  newsData: this.state.newsData.concat(result.response.results.slice(0,6))  //take only 2 elem for now
-
             newsData: this.state.newsData.concat(result.response.results)
           })
 
@@ -197,56 +199,68 @@ export default class App extends Component {
           for (pillar in this.state.newsDataByPillars) {
              this.layoutNewsSection(pillar); //layout all cards for a pillar in newsDataByPillars state
           }
-          
-this.determineNewsCardTypes(this.state.newsData);
         }
       ).catch(e => console.log("there's a error", e))
   }
   
   componentDidMount() {
 
-    //Get news from both API
     this.getNewsFromTheGuardian();
-//    this.getNewsFromTheNews();
   }
 
   render() {
       return (
         <div className="App">
-
-          {/* Front Page Section */}
           <div className="navBarContainer">
 
           </div>
+
+          {/* Headline News Section */}
           <div className="NewsSectionContainer">
-
             <div className="LeftColContainer">  
+              Headline News 
             </div>
-
             <div className="NewsContainer">
-
-
-              {/* <div className="FocusContainer">    
-                {this.state.newsCardsByPillars['News']['largeFocusCards']}  
-                {this.state.newsCardsByPillars['News']['smallFocusCards']}      
-              </div>
-              <div className="ArticlesContainer"> 
-                {this.state.newsCardsByPillars.News.articleCards}
-              </div> */}
-
               <div className="FocusContainer">    
-                {this.state.largeFocusCards}  
-                {this.state.smallFocusCards}      
+                {this.state.newsLargeFocusCards}  
+                {this.state.newsSmallFocusCards}      
               </div>
               <div className="ArticlesContainer"> 
-                {this.state.articleCards}
-  {this.state.mediumCards}
-  {this.state.smallCards}
+                {this.state.newsArticleCards}
               </div>
-
-
             </div>  
+          </div>
 
+          {/* Sport News Section */}
+          <div className="NewsSectionContainer">
+            <div className="LeftColContainer">  
+              Sport News 
+            </div>
+            <div className="NewsContainer">
+              <div className="FocusContainer">    
+                {this.state.sportLargeFocusCards}  
+                {this.state.sportSmallFocusCards}      
+              </div>
+              <div className="ArticlesContainer"> 
+                {this.state.sportArticleCards}
+              </div>
+            </div>  
+          </div>
+
+          {/* Arts Section */}
+          <div className="NewsSectionContainer">
+            <div className="LeftColContainer">  
+              Arts News 
+            </div>
+            <div className="NewsContainer">
+              <div className="FocusContainer">    
+                {this.state.artLargeFocusCards}  
+                {this.state.artSmallFocusCards}      
+              </div>
+              <div className="ArticlesContainer"> 
+                {this.state.artArticleCards}
+              </div>
+            </div>  
           </div>
         </div>
       );

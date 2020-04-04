@@ -18,8 +18,10 @@ border: solid brown;
 }
 
 .LeftColContainer {
-    width: 800px;           /***** left column take 60*2 + 20 (140) px *****/
+    min-width: 140px;           /***** left column take 60*2 + 20 (140) px *****/
     margin-right: 20px;
+
+border: solid hotpink;
 }
 
     .NewsContainer {
@@ -40,8 +42,9 @@ border: solid brown;
         }
             /***** A large focus card has 4 news items. The first has an image and is in the major row. The rest are in the minor row *****/
             .largeFocusCardContainer {
-                width:  auto;
+                min-width:  calc(220px * 3);
                 height: calc(125px * 3);
+                overflow: hidden;
 
                 /* display: flex;
                 flex-direction: row; */
