@@ -18,7 +18,7 @@ border: solid brown;
 }
 
 .LeftColContainer {
-    width: 140px;           /***** left column take 60*2 + 20 (140) px *****/
+    width: 800px;           /***** left column take 60*2 + 20 (140) px *****/
     margin-right: 20px;
 }
 
@@ -30,7 +30,7 @@ border: solid brown;
 
         .FocusContainer {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* each card is 60*3 + 20*2 (220) px wide */
+            grid-template-columns: minmax(calc(220px * 3), 3fr) minmax(220px, 1fr); /* each card is 60*3 + 20*2 (220) px wide */
 
             grid-gap: 20px;
 
@@ -42,27 +42,32 @@ border: solid brown;
                 width:  auto;
                 height: calc(120px * 3);
 
-                display: flex;
-                flex-direction: row;
+                /* display: flex;
+                flex-direction: row; */
+
                 /* each card is 60*3 + 20*2 (220) px wide */
-                /* display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+                display: grid;
+                grid-template-columns:1fr, 2fr; 
                 grid-template-rows: 2fr 1fr;
 
-                grid-gap: 20px; */
+                grid-gap: 20px;
 
                 background-color: salmon;
             }
                 .largeFocusCardMajorHeadlineBox {
-                    width: 33%;
-                    height: 67%;
+                    grid-column: 1/2;
+
+                    /* width: 33%;
+                    height: 67%; */
                     font-size: 18px;
                     color: white;
             border: solid hotpink;
                 }
                 .largeFocusCardImgBox {
-                    width: 67%;
-                    height: 67%;
+                    grid-column: 2/4;
+
+                    /* width: 67%;
+                    height: 67%; */
             border: solid lime;
                 }
                     .largeFocusCardImg {
@@ -70,16 +75,28 @@ border: solid brown;
                         height: 100%;
             border: solid lightblue;
                     }
-                .largeFocusCardHeadlineBox {
-                    width: 100%;
-                    height: 33%;
-                    font-size: 14px;
-                    color: white;
-            /* border: solid pink; */
+
+                .largeFocusCardMinorHeadlineBox {
+                    grid-column: 1/4;
+                    grid-row: 2/3;
+
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    
+                    margin-top: -20px;
+                    
+                    overflow: hidden;
                 }
+                    .largeFocusCardHeadlineBox {
 
-
-
+                        width: auto;
+                        height: 100%;
+                        padding: 5px 5px;
+                        font-size: 14px;
+                        color: white;
+                border: solid pink;
+                    }
 
 
         .ArticlesContainer {

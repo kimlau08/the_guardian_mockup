@@ -17,7 +17,7 @@ export default class App extends Component {
                  smallFocusCards: [],
                  mediumCards: [],
                  smallCards: [],
-   //       newsData: Archives,        //news archives stores previous news to overcome the 10 items limit per request
+          newsData: Archives.slice(0, 20),        //news archives stores previous news to overcome the 10 items limit per request
                  newsPillarCounts: {} };
 
 // this.getNewsFromTheNews=this.getNewsFromTheNews.bind(this);

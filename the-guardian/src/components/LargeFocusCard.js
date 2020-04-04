@@ -12,7 +12,7 @@ export default function LargeFocusCard(props) {
             // case of array of 4 news items
             return (
                 <div className='largeFocusCardContainer'>
-                    
+
                     <div className='largeFocusCardMajorHeadlineBox'>
                         <p>{props[0].webTitle}</p>
                     </div>
@@ -20,14 +20,16 @@ export default function LargeFocusCard(props) {
                         <img className='largeFocusCardImg' src={newsImg} />
                     </div>
 
-                    <div className='largeFocusCardHeadlineBox'>
-                        <p>{props[1].webTitle}</p>
-                    </div>
-                    <div className='largeFocusCardHeadlineBox'>
-                        <p>{props[2].webTitle}</p>
-                    </div>
-                    <div className='largeFocusCardHeadlineBox'>
-                        <p>{props[3].webTitle}</p>
+                    <div className='largeFocusCardMinorHeadlineBox'>
+                        <div className='largeFocusCardHeadlineBox'>
+                            <p>{props[1].webTitle}</p>
+                        </div>
+                        <div className='largeFocusCardHeadlineBox'>
+                            <p>{props[2].webTitle}</p>
+                        </div>
+                        <div className='largeFocusCardHeadlineBox'>
+                            <p>{props[3].webTitle}</p>
+                        </div>
                     </div>
                 </div>
             )
