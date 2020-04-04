@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Archives from './components/Archives';
-import SmallFocusCard from './components/SmallFocusCard'
+import LargeFocusCard from './components/LargeFocusCard';
+import SmallFocusCard from './components/SmallFocusCard';
 import MediumCard from './components/MediumCard';
 import SmallCard from './components/SmallCard';
 
@@ -43,8 +44,8 @@ export default class App extends Component {
     let smallCardCnt=Math.floor(newsItemCnt*smallCardRate);
 
     //Fill state with news items for large focus card, small focus card, medium cards and small cards 
-    let bigFocusNews=[ newsItems.slice(0), newsItems.slice(1), 
-                       newsItems.slice(2), newsItems.slice(3) ];
+    let bigFocusNews=[ [ newsItems[0], newsItems[1], 
+                         newsItems[2], newsItems[3] ] ];
     let smFocusNews=[ [ newsItems[4], newsItems[5] ] ];
     
     //each medium card has 1 news item.
@@ -65,12 +66,17 @@ export default class App extends Component {
       j++;
     }
 
-    const  smFocusCards=smFocusNews.map(SmallFocusCard);
-    this.setState({smallFocusCards: smFocusCards});
+    //Layout large and small focus cards 
+    const bigFocusCards=bigFocusNews.map(LargeFocusCard);
+    const smFocusCards=smFocusNews.map(SmallFocusCard);
+    this.setState( {largeFocusCards: bigFocusCards} );
+    this.setState( {smallFocusCards: smFocusCards} );
+
+    //Layout medium and small cards
     const medCards=medNews.map(MediumCard);
     const smCards=smNews.map(SmallCard);
-    this.setState({mediumCards: medCards});
-    this.setState({smallCards: smCards});
+    this.setState( {mediumCards: medCards} );
+    this.setState( {smallCards: smCards} );
     
   }
 
@@ -149,9 +155,14 @@ export default class App extends Component {
             </div>
 
             <div className="NewsContainer">
-              {this.state.smallFocusCards}
-              {this.state.mediumCards}
-              {this.state.smallCards}
+              <div className="FocusContainer">    
+                {this.state.largeFocusCards}  
+                {this.state.smallFocusCards}      
+              </div>
+              <div className="ArticlesContainer"> 
+                {this.state.mediumCards}
+                {this.state.smallCards}
+              </div>
             </div>  
 
           </div>
