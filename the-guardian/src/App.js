@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Archives from './components/Archives';
+import SmallFocusCard from './components/SmallFocusCard'
 import MediumCard from './components/MediumCard';
 import SmallCard from './components/SmallCard';
 
@@ -11,6 +12,8 @@ export default class App extends Component {
     this.state={ newsDataAvailable: true,   //start with archived data. 
                  newsData: [],
                  newsCards: [],
+                 largeFocusCards: [],
+                 smallFocusCards: [],
                  mediumCards: [],
                  smallCards: [],
    //       newsData: Archives,        //news archives stores previous news to overcome the 10 items limit per request
@@ -22,24 +25,39 @@ export default class App extends Component {
     this.determineNewsCardTypes=this.determineNewsCardTypes.bind(this);
   }
 
-  determineNewsCardTypes(newsItems) {
-    //arbitrarily decide the card type for news data, using a medium:small rate of 1:2
+  determineNewsCardTypes(newsItems) {  //arbitrarily decide the card type for news data
+
+    //Each news section must have 1 large focus card and a small focus card.
+    //   The rest are medium cards and small cards at a ratios of 1:1
+
+    let newsItemCnt=newsItems.length;
+
+    let largeFocusCardCnt=1; //Each large focus card takes 4 stories
+    let smallFocusCardCnt=1; //Each small focus card takes 2 stores
+    newsItemCnt-=(4 + 2);    //6 stories used so far
+
     let mediumCardRate=0.5;
     let smallCardRate=1-mediumCardRate;
 
-    let mediumCardCnt=Math.floor(newsItems.length*mediumCardRate);
-    let smallCardCnt=Math.floor(newsItems.length*smallCardRate);
+    let mediumCardCnt=Math.floor(newsItemCnt*mediumCardRate);
+    let smallCardCnt=Math.floor(newsItemCnt*smallCardRate);
 
-    //Fill state with medium cards and small cards 
-    //each medium cards fill one container.
+    //Fill state with news items for large focus card, small focus card, medium cards and small cards 
+    let bigFocusNews=[ newsItems.slice(0), newsItems.slice(1), 
+                       newsItems.slice(2), newsItems.slice(3) ];
+    let smFocusNews=[ [ newsItems[4], newsItems[5] ] ];
+    
+    //each medium card has 1 news item.
     let medNews=[]; let smNews=[];
     let i=0;
     for ( ; i<mediumCardCnt; i++) {
       medNews.push(newsItems[i]);
     }
-    //2 small cards fill one container. So each elem in smNews is an array of 1 to 2 small news items.
+    newsItemCnt-=mediumCardCnt; 
+
+    //each smll card has up to 2 news items. So each elem in smNews is an array of 1 to 2 small news items.
     let j=0;
-    for ( ; i<newsItems.length; i=i+2) {
+    for (let i=0 ; i<newsItemCnt; i=i+2) {
       smNews[j]=[ newsItems[i] ];  //create each smNews elem is an array of small news items
       if (i+1 <newsItems.length) {
         smNews[j]=smNews[j].concat([ newsItems[i+1] ]);  //add the 2nd small news items
@@ -47,6 +65,8 @@ export default class App extends Component {
       j++;
     }
 
+    const  smFocusCards=smFocusNews.map(SmallFocusCard);
+    this.setState({smallFocusCards: smFocusCards});
     const medCards=medNews.map(MediumCard);
     const smCards=smNews.map(SmallCard);
     this.setState({mediumCards: medCards});
@@ -95,9 +115,9 @@ export default class App extends Component {
 
           this.setState({
             newsDataAvailable: true,
-  newsData: this.state.newsData.concat(result.response.results.slice(0,6))  //take only 2 elem for now
+//  newsData: this.state.newsData.concat(result.response.results.slice(0,6))  //take only 2 elem for now
 
-//  newsData: this.state.newsData.concat(result.response.results)
+  newsData: this.state.newsData.concat(result.response.results)
           })
 
           this.determineNewsCardTypes(this.state.newsData);
@@ -125,11 +145,11 @@ export default class App extends Component {
           {/* Front Page Section */}
           <div className="NewsSectionContainer">
 
-            <div className="LeftColContainer">      
-              World News      
+            <div className="LeftColContainer">  
             </div>
 
             <div className="NewsContainer">
+              {this.state.smallFocusCards}
               {this.state.mediumCards}
               {this.state.smallCards}
             </div>  
