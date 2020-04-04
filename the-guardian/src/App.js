@@ -6,6 +6,10 @@ import SmallFocusCard from './components/SmallFocusCard';
 import MediumCard from './components/MediumCard';
 import SmallCard from './components/SmallCard';
 
+import HeadlineNewsSection from './components/HeadlineNewsSection';
+import SportNewsSection from './components/SportNewsSection';
+import ArtsNewsSection from './components/ArtsNewsSection';
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -17,9 +21,9 @@ export default class App extends Component {
                  sportLargeFocusCards: [],
                  sportSmallFocusCards: [],
                  sportArticleCards: [],  
-                 artLargeFocusCards: [],
-                 artSmallFocusCards: [],
-                 artArticleCards: [],  
+                 artsLargeFocusCards: [],
+                 artsSmallFocusCards: [],
+                 artsArticleCards: [],  
                  newsData: Archives.slice(0, 30),        //news archives stores previous news to overcome the 10 items limit per request
                  newsPillarCounts: {},
                  newsDataByPillars: {},
@@ -66,8 +70,8 @@ export default class App extends Component {
                 this.setState( {sportSmallFocusCards: smFocusCards} );
           break;
           case "Arts" :
-                this.setState( {artLargeFocusCards: bigFocusCards} );
-                this.setState( {artSmallFocusCards: smFocusCards} );
+                this.setState( {artsLargeFocusCards: bigFocusCards} );
+                this.setState( {artsSmallFocusCards: smFocusCards} );
            break;
         default:
           break        
@@ -126,7 +130,7 @@ export default class App extends Component {
               this.setState({sportArticleCards: articles});
         break;
         case "Arts" :
-              this.setState({artArticleCards: articles});
+              this.setState({artsArticleCards: articles});
          break;
       default:
         break        
@@ -216,52 +220,20 @@ export default class App extends Component {
           </div>
 
           {/* Headline News Section */}
-          <div className="NewsSectionContainer">
-            <div className="LeftColContainer">  
-              Headline News 
-            </div>
-            <div className="NewsContainer">
-              <div className="FocusContainer">    
-                {this.state.newsLargeFocusCards}  
-                {this.state.newsSmallFocusCards}      
-              </div>
-              <div className="ArticlesContainer"> 
-                {this.state.newsArticleCards}
-              </div>
-            </div>  
-          </div>
+          < HeadlineNewsSection newsLargeFocusCards={this.state.newsLargeFocusCards} 
+                                newsSmallFocusCards={this.state.newsSmallFocusCards}
+                                newsArticleCards={this.state.newsArticleCards} />
 
           {/* Sport News Section */}
-          <div className="NewsSectionContainer">
-            <div className="LeftColContainer">  
-              Sport News 
-            </div>
-            <div className="NewsContainer">
-              <div className="FocusContainer">    
-                {this.state.sportLargeFocusCards}  
-                {this.state.sportSmallFocusCards}      
-              </div>
-              <div className="ArticlesContainer"> 
-                {this.state.sportArticleCards}
-              </div>
-            </div>  
-          </div>
+          < SportNewsSection  sportLargeFocusCards={this.state.sportLargeFocusCards} 
+                              sportSmallFocusCards={this.state.sportSmallFocusCards}
+                              sportArticleCards={this.state.sportArticleCards} />
 
           {/* Arts Section */}
-          <div className="NewsSectionContainer">
-            <div className="LeftColContainer">  
-              Arts News 
-            </div>
-            <div className="NewsContainer">
-              <div className="FocusContainer">    
-                {this.state.artLargeFocusCards}  
-                {this.state.artSmallFocusCards}      
-              </div>
-              <div className="ArticlesContainer"> 
-                {this.state.artArticleCards}
-              </div>
-            </div>  
-          </div>
+          < ArtsNewsSection artsLargeFocusCards={this.state.artsLargeFocusCards} 
+                            artsSmallFocusCards={this.state.artsSmallFocusCards}
+                            artsArticleCards={this.state.artsArticleCards} />
+
         </div>
       );
     }
