@@ -1,13 +1,12 @@
 import React from 'react';
 import '../App.css';
-import {pickAnImage} from './MediumCard';
 
 export default function ArtsNewsSection(props) {
 
     return (
         <div className="NewsSectionContainer">
           <div className="LeftColContainer">  
-            Arts News 
+            Arts 
           </div>
           <div className="NewsContainer">
             <div className="FocusContainer">    

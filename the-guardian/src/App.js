@@ -10,6 +10,34 @@ import HeadlineNewsSection from './components/HeadlineNewsSection';
 import SportNewsSection from './components/SportNewsSection';
 import ArtsNewsSection from './components/ArtsNewsSection';
 
+
+
+const newsKickerFont = {
+  color: '#ff4e36',
+  fontWeight: 'bold' 
+}
+const sportKickerFont = {
+  color: '#0084c6',
+  fontWeight: 'bold' 
+}
+const artsKickerFont = {
+  color: '#a1845c',
+  fontWeight: 'bold' 
+}
+const newsLargeFocusKickerFont ={
+  color: '#ffbac8',
+  fontWeight: 'bold' 
+}
+const sportLargeFocusKickerFont ={
+  color: '#90dcff',
+  fontWeight: 'bold' 
+}
+const artsLargeFocusKickerFont ={
+  color: '#eacca0',
+  fontWeight: 'bold' 
+}
+
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -27,6 +55,9 @@ export default class App extends Component {
                  artsArticleCards: [],  
                  newsPillarCounts: {},
                  newsDataByPillars: {},
+                 headlineSection: React.createRef(),
+                 sportSection: React.createRef(),
+                 artsSection: React.createRef(),
                 };
 
     this.sortGuardianNewsPillarandCount=this.sortGuardianNewsPillarandCount.bind(this);
@@ -38,9 +69,6 @@ export default class App extends Component {
     this.handleHeadlineClick=this.handleHeadlineClick.bind(this);
     this.handleSportClick=this.handleSportClick.bind(this);
     this.handleArtsClick=this.handleArtsClick.bind(this);
-    this.headlineSection=React.createRef();
-    this.sportSection=React.createRef();
-    this.artsSection=React.createRef();
   }
 
   determineNewsCardTypes(newsItems, pillarName) {  //arbitrarily decide the card type for news data
@@ -50,6 +78,29 @@ export default class App extends Component {
     //   The rest are medium cards and small cards at a ratios of 3:1
 
     let newsItemCnt=newsItems.length;
+
+    let kickerFont={};
+    let largeFocusKickerFont={};
+    //Select Kicker font based on news section
+    switch (pillarName) {
+      case "News" :
+          kickerFont=newsKickerFont;
+          largeFocusKickerFont=newsLargeFocusKickerFont;
+        break;
+      case "Sport" :
+          kickerFont=sportKickerFont;
+          largeFocusKickerFont=sportLargeFocusKickerFont;
+        break;
+      case "Arts" :
+          kickerFont=artsKickerFont;
+          largeFocusKickerFont=artsLargeFocusKickerFont;
+        break;
+      default: 
+          kickerFont=newsKickerFont;  //default to news kicker font
+          largeFocusKickerFont=newsLargeFocusKickerFont;
+        break;
+    }
+
 
     //Create focus cards only when there are sufficient news items
     if (newsItemCnt >= 6) {
@@ -63,9 +114,11 @@ export default class App extends Component {
       let smFocusNews=[ [ newsItems[4], newsItems[5] ] ];
     
       //Layout large and small focus cards 
-      const bigFocusCards=bigFocusNews.map(LargeFocusCard);
-      const smFocusCards=smFocusNews.map(SmallFocusCard);
+      // const bigFocusCards=bigFocusNews.map(LargeFocusCard);
+      // const smFocusCards=smFocusNews.map(SmallFocusCard);
 
+      const bigFocusCards=bigFocusNews.map(LargeFocusCard,  {kicker: largeFocusKickerFont});
+      const smFocusCards=smFocusNews.map(SmallFocusCard,  {kicker: kickerFont});
 
 
       switch (pillarName) {
@@ -112,8 +165,11 @@ export default class App extends Component {
     }
 
     //Layout medium and small cards
-    const medCards=medNews.map(MediumCard);
-    const smCards=smNews.map(SmallCard);
+    // const medCards=medNews.map(MediumCard);
+    // const smCards=smNews.map(SmallCard);
+
+    const medCards=medNews.map(MediumCard, {kicker: kickerFont});
+    const smCards=smNews.map(SmallCard,  {kicker: kickerFont});
     const articles=[];
     //for every 3 medium cards, put in 1 small card.
     let medCardIdx=0; let smCardIdx=0;
@@ -132,7 +188,6 @@ export default class App extends Component {
      switch (pillarName) {
       case "News" :
               this.setState({newsArticleCards: articles});
-
             break;
       case "Sport" :
               this.setState({sportArticleCards: articles});
@@ -222,8 +277,8 @@ export default class App extends Component {
 
   handleHeadlineClick(event) {
     //"current" verifies that the component has rendered
-    if(this.headlineSection.current){
-        this.headlineSection.current.scrollIntoView({ 
+    if(this.state.headlineSection.current){
+        this.state.headlineSection.current.scrollIntoView({ 
            behavior: "smooth", 
            block: "nearest"
         })
@@ -231,8 +286,8 @@ export default class App extends Component {
   }
   handleSportClick(event) {
     //"current" verifies that the component has rendered
-    if(this.sportSection.current){
-        this.sportSection.current.scrollIntoView({ 
+    if(this.state.sportSection.current){
+        this.state.sportSection.current.scrollIntoView({ 
            behavior: "smooth", 
            block: "nearest"
         })
@@ -240,8 +295,8 @@ export default class App extends Component {
   }
   handleArtsClick(event) {
     //"current" verifies that the component has rendered
-    if(this.artsSection.current){
-        this.artsSection.current.scrollIntoView({ 
+    if(this.state.artsSection.current){
+        this.state.artsSection.current.scrollIntoView({ 
            behavior: "smooth", 
            block: "nearest"
         })
@@ -281,21 +336,21 @@ export default class App extends Component {
           </div>
 
           {/* Headline News Section */}
-          <div  ref={this.headlineSection}>
+          <div  ref={this.state.headlineSection}>
             < HeadlineNewsSection newsLargeFocusCards={this.state.newsLargeFocusCards} 
                                   newsSmallFocusCards={this.state.newsSmallFocusCards}
                                   newsArticleCards={this.state.newsArticleCards} />
           </div>
 
           {/* Sport News Section */}
-          <div ref={this.sportSection}>
+          <div ref={this.state.sportSection}>
             < SportNewsSection  sportLargeFocusCards={this.state.sportLargeFocusCards} 
                                 sportSmallFocusCards={this.state.sportSmallFocusCards}
                                 sportArticleCards={this.state.sportArticleCards} />
           </div>
 
           {/* Arts Section */}
-          <div ref={this.artsSection}>
+          <div ref={this.state.artsSection}>
             < ArtsNewsSection artsLargeFocusCards={this.state.artsLargeFocusCards} 
                               artsSmallFocusCards={this.state.artsSmallFocusCards}
                               artsArticleCards={this.state.artsArticleCards} />

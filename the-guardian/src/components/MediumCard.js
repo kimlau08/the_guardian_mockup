@@ -10,9 +10,27 @@ export function pickAnImage() { //return an image randomly and remove from image
     return pickedImage;
 }
 
-export default function MediumCard(props) {
+export function getKickerPhrase(headline) {
+    //A kicker is everything before a colon. if there is no colon, it returns the first 3 words.
+    let str=headline.split(':');
+    if (str.length<2) {  //there is no colon in the headline
+        let wordCnt=3 //use the first 3 words as kicker
+        let kicker=headline.split(' ').splice(0, wordCnt).join(' ')+"\ ";  //first 3 words with additional space
+        let rest=headline.split(' ').splice(wordCnt, headline.length).join(' ');  //the rest
+        return {head: kicker, tail: rest};
+    } else {
+        let kicker=str[0]+'/';  //the part before colon with additional '/'
+        let rest=str.splice(1, str.length).join(':'); //the rest
+        return {head: kicker, tail: rest};
+    }
+}
+
+export default function MediumCard(props, parms) {
 
     let newsImg=pickAnImage();
+    
+    let kickerFont=this.kicker;
+    let headAndTail=getKickerPhrase(props.webTitle);
 
     return (
         <div className='mediumCardContainer'>
@@ -20,7 +38,8 @@ export default function MediumCard(props) {
                 <img className='mediumCardImg' src={newsImg} />
             </div>
             <div className='mediumCardHeadlineBox'>
-                <p>{props.webTitle}</p>
+                <p><span style={kickerFont}>{headAndTail.head}</span>{headAndTail.tail}</p>
+                {/* <p>{props.webTitle}</p> */}
             </div>
         </div>
     )

@@ -1,20 +1,29 @@
 import React from 'react';
 import '../App.css';
 import {pickAnImage} from './MediumCard';
+import {getKickerPhrase} from './MediumCard';
 
-export default function LargeFocusCard(props) {
+export default function LargeFocusCard(props, parms) {
     //props is an array of 4 news items. The first item needs to accompany an image.
 
     let newsImg=pickAnImage();
 
+    let kickerFont=this.kicker;
+
     switch (props.length) {
         case 4:
             // case of array of 4 news items
+            
+            let headAndTail1=getKickerPhrase(props[0].webTitle);
+            let headAndTail2=getKickerPhrase(props[1].webTitle);
+            let headAndTail3=getKickerPhrase(props[2].webTitle);
+            let headAndTail4=getKickerPhrase(props[3].webTitle);
+
             return (
                 <div className='largeFocusCardContainer'>
 
                     <div className='largeFocusCardMajorHeadlineBox'>
-                        <p>{props[0].webTitle}</p>
+                        <p><span style={kickerFont}>{headAndTail1.head}</span>{headAndTail1.tail}</p>  
                     </div>
                     <div className='largeFocusCardImgBox'>
                         <img className='largeFocusCardImg' src={newsImg} />
@@ -22,13 +31,16 @@ export default function LargeFocusCard(props) {
 
                     <div className='largeFocusCardMinorHeadlineBox'>
                         <div className='largeFocusCardHeadlineBox'>
-                            <p>{props[1].webTitle}</p>
+                        <hr className='newsItemLine' />
+                            <p><span style={kickerFont}>{headAndTail2.head}</span>{headAndTail2.tail}</p>  
                         </div>
                         <div className='largeFocusCardHeadlineBox'>
-                            <p>{props[2].webTitle}</p>
+                        <hr className='newsItemLine' />
+                            <p><span style={kickerFont}>{headAndTail3.head}</span>{headAndTail3.tail}</p>  
                         </div>
                         <div className='largeFocusCardHeadlineBox'>
-                            <p>{props[3].webTitle}</p>
+                        <hr className='newsItemLine' />
+                            <p><span style={kickerFont}>{headAndTail4.head}</span>{headAndTail4.tail}</p>  
                         </div>
                     </div>
                 </div>

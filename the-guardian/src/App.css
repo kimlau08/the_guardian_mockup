@@ -1,6 +1,6 @@
 
 .App {
-    width: 95%;
+    width: 100%;
     font-family: serif;
 /* height: calc (130px * 6); */
 
@@ -12,9 +12,11 @@
     flex-direction: column;
     width: 100%;
     height: 200px;
+    overflow: hidden;
 
     justify-content: space-evenly;
-background-color: #052962;}
+    background-color: #052962;
+}
 
     .navBarRow1 {
         display: flex;
@@ -27,20 +29,20 @@ background-color: #052962;}
         .supportMsgBox {
             display: block;
             width: 50%;
-border: solid  lime;
+/* border: solid  lime; */
         }
     
             .supportText {
                 color: #ffe500;
                 font-size: 38px;
                 font-weight: bolder;
-border: solid lime;
+/* border: solid lime; */
             }
 
             .supportDescription {
                 color: white;
                 margin-top: -35px;
-border: solid lime;
+/* border: solid lime; */
             }
 
             .actionButton {
@@ -66,7 +68,7 @@ border: solid lime;
             font-weight: bolder;
             text-align: center;
 
-    border: solid white;
+/* border: solid white; */
         }
 
     
@@ -74,7 +76,7 @@ border: solid lime;
         display: flex;
         flex-direction: row;
         width: 100%;
-border: solid yellow;
+/* border: solid yellow; */
     }
         .menuItemBox {
             width: 200px;
@@ -107,6 +109,8 @@ border: solid brown;
 .LeftColContainer {
     min-width: 140px;           /***** left column take 60*2 + 20 (140) px *****/
     margin-right: 20px;
+    font-size: 28px;
+    font-weight: bold;
 
 /* border: solid hotpink; */
 }
@@ -182,7 +186,7 @@ border: solid brown;
                     flex-direction: row;
                     justify-content: space-evenly; */
                     
-                    margin-top: -20px;
+                    margin-top: -5px;
                 }
                     .largeFocusCardHeadlineBox {
 
@@ -249,7 +253,7 @@ border: solid brown;
                     margin: 0 0 auto;
 
                     border: 0;
-                    border-top: 1px solid salmon;
+                    border-top: 1px solid #ff4e36;
                     border-bottom: 1px solid white;
                 }
 
