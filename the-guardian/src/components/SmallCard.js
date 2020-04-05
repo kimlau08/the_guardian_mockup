@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import {getKickerPhrase} from './MediumCard';
 
-export default function SmallCard(props, parms) {
+export default function SmallCard(props) {
     //props is an array of 1 or 2 small news items
 
     let kickerFont=this.kicker;

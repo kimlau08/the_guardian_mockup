@@ -99,7 +99,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-border: solid brown;
+/* border: solid brown; */
     /* display: grid;
     grid-template-columns: 140px repeat(auto-fill, minmax(220px, 1fr)); 
 

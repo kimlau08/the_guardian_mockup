@@ -1,12 +1,11 @@
 import React from 'react';
 import '../App.css';
-import {pickAnImage} from './MediumCard';
-import {getKickerPhrase} from './MediumCard';
+import {pickAnImage, getKickerPhrase} from './MediumCard';
 
-export default function SmallFocusCard(props, parms) {
+export default function SmallFocusCard(props) {
     //props is an array of 2 news items. The first item needs to accompany an image.
 
-    let newsImg=pickAnImage();
+    let newsImg=pickAnImage(this.imageStore);
 
     let kickerFont=this.kicker;
 

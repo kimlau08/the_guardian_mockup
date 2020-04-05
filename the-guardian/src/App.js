@@ -10,7 +10,7 @@ import HeadlineNewsSection from './components/HeadlineNewsSection';
 import SportNewsSection from './components/SportNewsSection';
 import ArtsNewsSection from './components/ArtsNewsSection';
 
-
+import newsImageStore, { spImageStore, artsImageStore } from './components/ImagesStore';
 
 const newsKickerFont = {
   color: '#ff4e36',
@@ -81,23 +81,28 @@ export default class App extends Component {
 
     let kickerFont={};
     let largeFocusKickerFont={};
-    //Select Kicker font based on news section
+    let imageStore=[];
+    //Select Kicker font and images based on news section
     switch (pillarName) {
       case "News" :
           kickerFont=newsKickerFont;
           largeFocusKickerFont=newsLargeFocusKickerFont;
+          imageStore=newsImageStore;
         break;
       case "Sport" :
           kickerFont=sportKickerFont;
           largeFocusKickerFont=sportLargeFocusKickerFont;
+          imageStore=spImageStore;
         break;
       case "Arts" :
           kickerFont=artsKickerFont;
           largeFocusKickerFont=artsLargeFocusKickerFont;
+          imageStore=artsImageStore;
         break;
       default: 
           kickerFont=newsKickerFont;  //default to news kicker font
           largeFocusKickerFont=newsLargeFocusKickerFont;
+          imageStore=newsImageStore;
         break;
     }
 
@@ -117,8 +122,8 @@ export default class App extends Component {
       // const bigFocusCards=bigFocusNews.map(LargeFocusCard);
       // const smFocusCards=smFocusNews.map(SmallFocusCard);
 
-      const bigFocusCards=bigFocusNews.map(LargeFocusCard,  {kicker: largeFocusKickerFont});
-      const smFocusCards=smFocusNews.map(SmallFocusCard,  {kicker: kickerFont});
+      const bigFocusCards=bigFocusNews.map(LargeFocusCard,  {kicker: largeFocusKickerFont, imageStore: imageStore});
+      const smFocusCards=smFocusNews.map(SmallFocusCard,  {kicker: kickerFont, imageStore: imageStore});
 
 
       switch (pillarName) {
@@ -168,8 +173,8 @@ export default class App extends Component {
     // const medCards=medNews.map(MediumCard);
     // const smCards=smNews.map(SmallCard);
 
-    const medCards=medNews.map(MediumCard, {kicker: kickerFont});
-    const smCards=smNews.map(SmallCard,  {kicker: kickerFont});
+    const medCards=medNews.map(MediumCard, {kicker: kickerFont, imageStore: imageStore});
+    const smCards=smNews.map(SmallCard,  {kicker: kickerFont, imageStore: imageStore});
     const articles=[];
     //for every 3 medium cards, put in 1 small card.
     let medCardIdx=0; let smCardIdx=0;
@@ -187,7 +192,7 @@ export default class App extends Component {
 
      switch (pillarName) {
       case "News" :
-              this.setState({newsArticleCards: articles});
+              this.setState({newsArticleCards: articles.slice(0, 2)});
             break;
       case "Sport" :
               this.setState({sportArticleCards: articles});

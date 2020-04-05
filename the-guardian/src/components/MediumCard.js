@@ -1,8 +1,7 @@
 import React from 'react';
 import '../App.css';
-import imageStore from './ImagesStore';
 
-export function pickAnImage() { //return an image randomly and remove from imageStore
+export function pickAnImage(imageStore) { //return an image randomly and remove from imageStore
     let idx=Math.floor(Math.random(imageStore.length));
     let pickedImage=imageStore[idx];
     imageStore.splice(idx, 1);      //remove selected image from imageStore
@@ -25,9 +24,9 @@ export function getKickerPhrase(headline) {
     }
 }
 
-export default function MediumCard(props, parms) {
+export default function MediumCard(props) {
 
-    let newsImg=pickAnImage();
+    let newsImg=pickAnImage(this.imageStore);
     
     let kickerFont=this.kicker;
     let headAndTail=getKickerPhrase(props.webTitle);
