@@ -74,6 +74,7 @@ export default class App extends Component {
 
     this.handleMouseOver=this.handleMouseOver.bind(this);
     this.changeSiblingStyling=this.changeSiblingStyling.bind(this);
+    this.updateTopBorderStyle=this.updateTopBorderStyle.bind(this);
   }
 
   determineNewsCardTypes(newsItems, pillarName) {  //arbitrarily decide the card type for news data
@@ -124,9 +125,6 @@ export default class App extends Component {
       let smFocusNews=[ [ newsItems[4], newsItems[5] ] ];
     
       //Layout large and small focus cards 
-      // const bigFocusCards=bigFocusNews.map(LargeFocusCard);
-      // const smFocusCards=smFocusNews.map(SmallFocusCard);
-
       const bigFocusCards=bigFocusNews.map(LargeFocusCard,  {kicker: largeFocusKickerFont, imageStore: imageStore});
       const smFocusCards=smFocusNews.map(SmallFocusCard,  {kicker: kickerFont, imageStore: imageStore});
 
@@ -190,10 +188,9 @@ export default class App extends Component {
       }
      }
 
-
      switch (pillarName) {
       case "News" :
-              this.setState({newsArticleCards: articles.slice(0, 5)});
+              this.setState({newsArticleCards: articles.slice(0, 8)});
             break;
       case "Sport" :
               this.setState({sportArticleCards: articles});
@@ -207,7 +204,7 @@ export default class App extends Component {
     
   }
 
-//fill this.state.newsPillarCounts with an object of counts of pillars (news type)
+  //fill this.state.newsPillarCounts with an object of counts of pillars (news type)
   sortGuardianNewsPillarandCount() {
 
     if (!this.state.newsDataAvailable) {  //no news data to sort
@@ -304,6 +301,13 @@ export default class App extends Component {
   handleMouseOver(e) {
       e.target.style.borderTopWidth='3px';
       e.target.style.borderTopColor='#c70000';
+
+      let restoreStyle= {
+        bordercolor: "#506991",
+        borderWidth: "1px"
+      }
+
+      this.changeSiblingStyling(e.target, this.updateTopBorderStyle, restoreStyle)
   }
  
   handleHeadlineClick(event) {
