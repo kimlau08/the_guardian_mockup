@@ -12,6 +12,8 @@ import ArtsNewsSection from './components/ArtsNewsSection';
 
 import newsImageStore, { spImageStore, artsImageStore } from './components/ImagesStore';
 
+import config from './config/config';   //import API key
+
 const newsKickerFont = {
   color: '#ff4e36',
   fontWeight: 'bold' 
@@ -69,6 +71,9 @@ export default class App extends Component {
     this.handleHeadlineClick=this.handleHeadlineClick.bind(this);
     this.handleSportClick=this.handleSportClick.bind(this);
     this.handleArtsClick=this.handleArtsClick.bind(this);
+
+    this.handleMouseOver=this.handleMouseOver.bind(this);
+    this.changeSiblingStyling=this.changeSiblingStyling.bind(this);
   }
 
   determineNewsCardTypes(newsItems, pillarName) {  //arbitrarily decide the card type for news data
@@ -250,7 +255,8 @@ export default class App extends Component {
 
   getNewsFromTheGuardian() {
     
-    fetch("https://content.guardianapis.com/search?number=4&api-key=66e07eb6-9651-459d-a349-2d24533858b7")
+    let api_key=config.THE_GUARDIAN_KEY;
+    fetch("https://content.guardianapis.com/search?number=4&api-key="+api_key)
       .then(response => response.json()) // first response => resolved
       .then(
         result => {
@@ -280,7 +286,33 @@ export default class App extends Component {
     this.getNewsFromTheGuardian();
   }
 
+  updateTopBorderStyle=(node, style)=>{  //updater function for font color
+    node.style.borderTopColor=style.bordercolor;
+    node.style.borderTopWidth=style.borderWidth;
+  }
+
+  changeSiblingStyling(node, styleUpdater, styleObj) { //update whatever styling needed by the caller
+
+    let sibling=node.parentNode.firstChild;
+    while (sibling) {
+        if (sibling==node) { //It's itself, not sibling
+            sibling=sibling.nextElementSibling;
+            continue;  
+        }
+
+        styleUpdater(sibling, styleObj); //update whatever styling needed by the caller
+
+        sibling=sibling.nextElementSibling;
+    }
+  }
+
+  handleMouseOver(e) {
+      e.target.style.borderTopWidth='3px';
+      e.target.style.borderTopColor='#c70000';
+  }
+ 
   handleHeadlineClick(event) {
+
     //"current" verifies that the component has rendered
     if(this.state.headlineSection.current){
         this.state.headlineSection.current.scrollIntoView({ 
@@ -290,6 +322,7 @@ export default class App extends Component {
     }
   }
   handleSportClick(event) {
+
     //"current" verifies that the component has rendered
     if(this.state.sportSection.current){
         this.state.sportSection.current.scrollIntoView({ 
@@ -325,16 +358,19 @@ export default class App extends Component {
 
             <div className="navBarBox">
               <div className="menuItemBox">
-                <a className="menuItems" href="#" onClick={this.handleHeadlineClick} >News</a>
+                <a className="menuItems" id='News' href="#" onClick={this.handleHeadlineClick} onMouseEnter={this.handleMouseOver}  >News</a>
               </div>
               <div className="menuItemBox">
-                <a className="menuItems" href="#" onClick={this.handleSportClick} >Sport</a>
+                <a className="menuItems" id='Sport' href="#" onClick={this.handleSportClick} onMouseEnter={this.handleMouseOver}  >Sport</a>
               </div>
               <div className="menuItemBox">
-                <a className="menuItems" href="#" onClick={this.handleArtsClick} >Arts</a>
+                <a className="menuItems" id='Arts' href="#" onClick={this.handleArtsClick} onMouseEnter={this.handleMouseOver}  >Arts</a>
               </div>
               <div className="menuItemBox">
-                <a className="menuItems" href="#" onClick={this.handleArtsClick} >Lifestyle</a>
+                <a className="menuItems" id='Lifestyles' href="#" onClick={this.handleArtsClick} onMouseEnter={this.handleMouseOver}  >Lifestyle</a>
+              </div>
+              <div className="longMenuItemBox">
+                <a className="menuItems" id='More' href="#" >More</a>
               </div>
             </div>
 

@@ -14,16 +14,6 @@ import img17 from '../assets/newsImage/img17.jpg';
 import img18 from '../assets/newsImage/img18.jpg';
 import img19 from '../assets/newsImage/img19.jpg';
 import img20 from '../assets/newsImage/img20.jpg';
-import img21 from '../assets/newsImage/img21.jpg';
-import img22 from '../assets/newsImage/img22.jpg';
-import img23 from '../assets/newsImage/img23.jpg';
-import img24 from '../assets/newsImage/img24.jpg';
-import img25 from '../assets/newsImage/img25.jpg';
-import img26 from '../assets/newsImage/img26.jpg';
-import img27 from '../assets/newsImage/img27.jpg';
-import img28 from '../assets/newsImage/img28.jpg';
-import img29 from '../assets/newsImage/img29.jpg';
-import img30 from '../assets/newsImage/img30.jpg';
 
 import spimg1 from '../assets/sportImage/img1.jpg';
 import spimg2 from '../assets/sportImage/img2.jpg';
@@ -60,16 +50,6 @@ newsImageStore.push(img17);
 newsImageStore.push(img18);
 newsImageStore.push(img19);
 newsImageStore.push(img20);
-newsImageStore.push(img21);
-newsImageStore.push(img22);
-newsImageStore.push(img23);
-newsImageStore.push(img24);
-newsImageStore.push(img25);
-newsImageStore.push(img26);
-newsImageStore.push(img27);
-newsImageStore.push(img28);
-newsImageStore.push(img29);
-newsImageStore.push(img30);
 
 export default newsImageStore;
 

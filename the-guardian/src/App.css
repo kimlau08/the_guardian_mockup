@@ -2,9 +2,6 @@
 .App {
     width: 100%;
     font-family: serif;
-/* height: calc (130px * 6); */
-
-/* border: solid red; */
 }
 
 .navBarContainer{
@@ -29,20 +26,17 @@
         .supportMsgBox {
             display: block;
             width: 50%;
-/* border: solid  lime; */
         }
     
             .supportText {
                 color: #ffe500;
                 font-size: 38px;
                 font-weight: bolder;
-/* border: solid lime; */
             }
 
             .supportDescription {
                 color: white;
                 margin-top: -35px;
-/* border: solid lime; */
             }
 
             .actionButton {
@@ -67,8 +61,6 @@
             color: white;
             font-weight: bolder;
             text-align: center;
-
-/* border: solid white; */
         }
 
     
@@ -76,9 +68,8 @@
         display: flex;
         flex-direction: row;
         width: 100%;
-/* border: solid yellow; */
     }
-        .menuItemBox {
+        .menuItemBox, .longMenuItemBox {
             width: 200px;
             height: 70px;
             padding-left: 10px;
@@ -90,6 +81,9 @@
                 color: white;
                 text-decoration: none;
             }
+        .longMenuItemBox {
+            width: 600px;
+        }
 
 
 
@@ -99,11 +93,6 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-/* border: solid brown; */
-    /* display: grid;
-    grid-template-columns: 140px repeat(auto-fill, minmax(220px, 1fr)); 
-
-    grid-gap: 20px; */
 }
 
 .LeftColContainer {
@@ -111,8 +100,6 @@
     margin-right: 20px;
     font-size: 28px;
     font-weight: bold;
-
-/* border: solid hotpink; */
 }
 
     .NewsContainer {
@@ -152,11 +139,8 @@
                 .largeFocusCardMajorHeadlineBox {
                     grid-column: 1/2;
 
-                    /* width: 33%;
-                    height: 67%; */
                     font-size: 18px;
                     color: white;
-    /* border: solid hotpink; */
                 }
                 .largeFocusCardImgBox {
                     grid-column: 2/4;
