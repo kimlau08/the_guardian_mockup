@@ -45,7 +45,7 @@ export default class App extends Component {
     super(props)
 
     this.state={ newsDataAvailable: true,   //start with archived data. 
-                 newsData: Archives.slice(0, 30),        //news archives stores previous news to overcome the 10 items limit per request
+                 newsData: Archives,        //news archives stores previous news to overcome the 10 items limit per request
                  newsLargeFocusCards: [],
                  newsSmallFocusCards: [],
                  newsArticleCards: [],   //Used for actual rendering: For every 3 medium cards, put in 1 small card
