@@ -124,9 +124,6 @@
                 height: calc(125px * 3);
                 overflow: hidden;
 
-                /* display: flex;
-                flex-direction: row; */
-
                 /* each card is 60*3 + 20*2 (220) px wide */
                 display: grid;
                 grid-template-columns: minmax(calc(220px * 1), 1fr) minmax(calc(220px * 2), 2fr); 
@@ -149,12 +146,10 @@
                     height: 67%; */
                     max-width: 100%;
                     overflow: hidden;
-    /* border: solid lime; */
                 }
                     .largeFocusCardImg {
                         width: 100%;
                         height: 100%;
-    /* border: solid lightblue; */
                     }
 
                 .largeFocusCardMinorHeadlineBox {
@@ -165,10 +160,6 @@
                     display: grid;
                     grid-template-columns: repeat(auto-fill, minmax(calc(220px * 1), 1fr));
                     grid-gap: 20px;
-
-                    /* display: flex;
-                    flex-direction: row;
-                    justify-content: space-evenly; */
                     
                     margin-top: -5px;
                 }
@@ -180,7 +171,6 @@
                         padding: 0 10px 0 5px; /* top right buttom left */
                         font-size: 14px;
                         color: white;
-        /* border: solid pink; */
                     }
 
 
@@ -196,11 +186,9 @@
                     width: 100%;
                     height: 33%;
                     overflow: hidden;
-/* border: solid green; */
                 }
                     .smallFocusCardImg {
                         width: 100%;
-/* border: solid salmon; */
                     }
 
                 .smallFocusCardHeadlineBox {
@@ -208,7 +196,6 @@
                     height: 33%;
                     font-size: 14px;
                     color: black;
-/* border: solid pink; */
                 }
 
 
@@ -228,8 +215,6 @@
                 height: calc(120px * 2);
 
                 display: block;
-                
-/* border: solid blueviolet; */
             }
 
                 .newsItemLine {
@@ -245,18 +230,15 @@
                     width: 100%;
                     height: 50%;
                     overflow: hidden;
-/* border: solid lime; */
                 }
                     .mediumCardImg {
                         width: 100%;
-            /* border: solid salmon; */
                     }
                 .mediumCardHeadlineBox {
                     width: 100%;
                     height: 50%;
                     font-size: 14px;
                     color: black;
-            /* border: solid pink; */
                 }
 
 
@@ -264,11 +246,8 @@
             .smallCardContainer {
                 width: auto; 
                 height: calc(120px * 2);
-
                 
                 display: block;
-
-            /* border:solid  deepskyblue; */
             }
                 .smallCardHeadlineBox {
                     margin-top: 0px;
@@ -276,7 +255,6 @@
                     height: 50%;
                     font-size: 14px;
                     color: black;
-            /* border: solid pink; */
                 }
 
 

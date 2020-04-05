@@ -174,10 +174,6 @@ export default class App extends Component {
       j++;
     }
 
-    //Layout medium and small cards
-    // const medCards=medNews.map(MediumCard);
-    // const smCards=smNews.map(SmallCard);
-
     const medCards=medNews.map(MediumCard, {kicker: kickerFont, imageStore: imageStore});
     const smCards=smNews.map(SmallCard,  {kicker: kickerFont, imageStore: imageStore});
     const articles=[];
@@ -246,8 +242,7 @@ export default class App extends Component {
   }
 
 
-  layoutNewsSection(pillarName) { //Layout all news cards for a given news pillar type
-    //Use static card state e.g. newsArticles, artsArticles, etc instead of an object containing all, due to async preference of JSX. Static state is updated and available for rendering. Dynamic objects is delayed and not updated in time for initial rendering
+  layoutNewsSection(pillarName) { 
 
     this.determineNewsCardTypes(this.state.newsDataByPillars[pillarName], pillarName)
 
