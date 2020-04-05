@@ -17,7 +17,7 @@ export default function SmallCard(props) {
                 <div className='smallCardContainer'>
                     <div className='smallCardHeadlineBox'>
                         <hr className='newsItemLine' />
-                            <p><span style={kickerFont}>{headAndTail1.head}</span>{headAndTail1.tail}</p>
+                        <p><span style={kickerFont}>{headAndTail1.head}</span>{headAndTail1.tail}</p>
                     </div>
                 </div>
             ) 
@@ -34,11 +34,11 @@ export default function SmallCard(props) {
                 <div className='smallCardContainer'>
                     <div className='smallCardHeadlineBox'>
                         <hr className='newsItemLine' />
-                            <p><span style={kickerFont}>{headAndTail1.head}</span>{headAndTail1.tail}</p>  
+                        <p><span style={kickerFont}>{headAndTail1.head}</span>{headAndTail1.tail}</p>  
                     </div>
                     <div className='smallCardHeadlineBox'>
                         <hr className='newsItemLine' />
-                            <p><span style={kickerFont}>{headAndTail2.head}</span>{headAndTail2.tail}</p>  
+                        <p><span style={kickerFont}>{headAndTail2.head}</span>{headAndTail2.tail}</p>  
                     </div>
                 </div>
             )

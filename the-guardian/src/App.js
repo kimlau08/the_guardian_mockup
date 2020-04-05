@@ -193,7 +193,7 @@ export default class App extends Component {
 
      switch (pillarName) {
       case "News" :
-              this.setState({newsArticleCards: articles.slice(0, 2)});
+              this.setState({newsArticleCards: articles.slice(0, 5)});
             break;
       case "Sport" :
               this.setState({sportArticleCards: articles});
@@ -350,7 +350,6 @@ export default class App extends Component {
                         
               <p className="logo">The Guardian</p>
             </div>
-
             <div className="navBarBox">
               <div className="menuItemBox">
                 <a className="menuItems" id='News' href="#" onClick={this.handleHeadlineClick} onMouseEnter={this.handleMouseOver}  >News</a>
@@ -370,6 +369,7 @@ export default class App extends Component {
             </div>
 
           </div>
+          <div className="median"></div>
 
           {/* Headline News Section */}
           <div  ref={this.state.headlineSection}>
@@ -377,6 +377,7 @@ export default class App extends Component {
                                   newsSmallFocusCards={this.state.newsSmallFocusCards}
                                   newsArticleCards={this.state.newsArticleCards} />
           </div>
+          <div className="median"></div>
 
           {/* Sport News Section */}
           <div ref={this.state.sportSection}>
@@ -384,6 +385,7 @@ export default class App extends Component {
                                 sportSmallFocusCards={this.state.sportSmallFocusCards}
                                 sportArticleCards={this.state.sportArticleCards} />
           </div>
+          <div className="median"></div>
 
           {/* Arts Section */}
           <div ref={this.state.artsSection}>

@@ -33,6 +33,7 @@ export default function MediumCard(props) {
 
     return (
         <div className='mediumCardContainer'>
+            <hr className='newsItemLine' />
             <div className='mediumCardImgBox'>
                 <img className='mediumCardImg' src={newsImg} />
             </div>
