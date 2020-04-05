@@ -15,6 +15,7 @@ export default class App extends Component {
     super(props)
 
     this.state={ newsDataAvailable: true,   //start with archived data. 
+                 newsData: Archives.slice(0, 30),        //news archives stores previous news to overcome the 10 items limit per request
                  newsLargeFocusCards: [],
                  newsSmallFocusCards: [],
                  newsArticleCards: [],   //Used for actual rendering: For every 3 medium cards, put in 1 small card
@@ -24,7 +25,6 @@ export default class App extends Component {
                  artsLargeFocusCards: [],
                  artsSmallFocusCards: [],
                  artsArticleCards: [],  
-                 newsData: Archives.slice(0, 30),        //news archives stores previous news to overcome the 10 items limit per request
                  newsPillarCounts: {},
                  newsDataByPillars: {},
                 };
@@ -33,6 +33,14 @@ export default class App extends Component {
     this.getNewsFromTheGuardian=this.getNewsFromTheGuardian.bind(this);
     this.determineNewsCardTypes=this.determineNewsCardTypes.bind(this);
     this.layoutNewsSection=this.layoutNewsSection.bind(this);
+
+    //Same page scroll traget
+    this.handleHeadlineClick=this.handleHeadlineClick.bind(this);
+    this.handleSportClick=this.handleSportClick.bind(this);
+    this.handleArtsClick=this.handleArtsClick.bind(this);
+    this.headlineSection=React.createRef();
+    this.sportSection=React.createRef();
+    this.artsSection=React.createRef();
   }
 
   determineNewsCardTypes(newsItems, pillarName) {  //arbitrarily decide the card type for news data
@@ -212,27 +220,86 @@ export default class App extends Component {
     this.getNewsFromTheGuardian();
   }
 
+  handleHeadlineClick(event) {
+    //"current" verifies that the component has rendered
+    if(this.headlineSection.current){
+        this.headlineSection.current.scrollIntoView({ 
+           behavior: "smooth", 
+           block: "nearest"
+        })
+    }
+  }
+  handleSportClick(event) {
+    //"current" verifies that the component has rendered
+    if(this.sportSection.current){
+        this.sportSection.current.scrollIntoView({ 
+           behavior: "smooth", 
+           block: "nearest"
+        })
+    }
+  }
+  handleArtsClick(event) {
+    //"current" verifies that the component has rendered
+    if(this.artsSection.current){
+        this.artsSection.current.scrollIntoView({ 
+           behavior: "smooth", 
+           block: "nearest"
+        })
+    }
+  }
+
   render() {
       return (
         <div className="App">
           <div className="navBarContainer">
+            <div className="navBarRow1">
+              <div className="supportMsgBox">
+                <p className="supportText">Support The Guardian</p>
+                <p className="supportDescription">Support our journalism with a year-end gift</p>
+                <button className="actionButton">Contribute <span className="inlineArrow">→</span> </button>
+                <button className="actionButton">Subscribe <span className="inlineArrow">→</span> </button>
+              </div>
+                        
+              <p className="logo">The Guardian</p>
+            </div>
+
+            <div className="navBarBox">
+              <div className="menuItemBox">
+                <a className="menuItems" href="#" onClick={this.handleHeadlineClick} >News</a>
+              </div>
+              <div className="menuItemBox">
+                <a className="menuItems" href="#" onClick={this.handleSportClick} >Sport</a>
+              </div>
+              <div className="menuItemBox">
+                <a className="menuItems" href="#" onClick={this.handleArtsClick} >Arts</a>
+              </div>
+              <div className="menuItemBox">
+                <a className="menuItems" href="#" onClick={this.handleArtsClick} >Lifestyle</a>
+              </div>
+            </div>
 
           </div>
 
           {/* Headline News Section */}
-          < HeadlineNewsSection newsLargeFocusCards={this.state.newsLargeFocusCards} 
-                                newsSmallFocusCards={this.state.newsSmallFocusCards}
-                                newsArticleCards={this.state.newsArticleCards} />
+          <div  ref={this.headlineSection}>
+            < HeadlineNewsSection newsLargeFocusCards={this.state.newsLargeFocusCards} 
+                                  newsSmallFocusCards={this.state.newsSmallFocusCards}
+                                  newsArticleCards={this.state.newsArticleCards} />
+          </div>
 
           {/* Sport News Section */}
-          < SportNewsSection  sportLargeFocusCards={this.state.sportLargeFocusCards} 
-                              sportSmallFocusCards={this.state.sportSmallFocusCards}
-                              sportArticleCards={this.state.sportArticleCards} />
+          <div ref={this.sportSection}>
+            < SportNewsSection  sportLargeFocusCards={this.state.sportLargeFocusCards} 
+                                sportSmallFocusCards={this.state.sportSmallFocusCards}
+                                sportArticleCards={this.state.sportArticleCards} />
+          </div>
 
           {/* Arts Section */}
-          < ArtsNewsSection artsLargeFocusCards={this.state.artsLargeFocusCards} 
-                            artsSmallFocusCards={this.state.artsSmallFocusCards}
-                            artsArticleCards={this.state.artsArticleCards} />
+          <div ref={this.artsSection}>
+            < ArtsNewsSection artsLargeFocusCards={this.state.artsLargeFocusCards} 
+                              artsSmallFocusCards={this.state.artsSmallFocusCards}
+                              artsArticleCards={this.state.artsArticleCards} />
+          </div>
 
         </div>
       );

@@ -1,10 +1,97 @@
 
 .App {
     width: 95%;
+    font-family: serif;
 /* height: calc (130px * 6); */
 
 /* border: solid red; */
 }
+
+.navBarContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 200px;
+
+    justify-content: space-evenly;
+background-color: #052962;}
+
+    .navBarRow1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+        height: 200px;
+    }
+
+        .supportMsgBox {
+            display: block;
+            width: 50%;
+border: solid  lime;
+        }
+    
+            .supportText {
+                color: #ffe500;
+                font-size: 38px;
+                font-weight: bolder;
+border: solid lime;
+            }
+
+            .supportDescription {
+                color: white;
+                margin-top: -35px;
+border: solid lime;
+            }
+
+            .actionButton {
+                background-color: #ffe500;
+                font-size: 18px;
+                font-weight: bold;
+                color: #052962;
+                border: none;
+                border-radius: 50px;
+                padding: 0 3px 5px 3px;
+                margin-right: 10px;
+            }
+
+                .inlineArrow {
+                    font-size: 24px;
+                    font-weight: bolder;
+                }
+
+        .logo {
+            font-size: 56px;
+            width: 250px;
+            color: white;
+            font-weight: bolder;
+            text-align: center;
+
+    border: solid white;
+        }
+
+    
+    .navBarBox {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+border: solid yellow;
+    }
+        .menuItemBox {
+            width: 200px;
+            height: 70px;
+            padding-left: 10px;
+            border: solid 1px #506991;
+        }
+            .menuItems {
+                font-size: 24px;
+                font-weight: bold;
+                color: white;
+                text-decoration: none;
+            }
+
+
+
+/**********************************News section and card styling********************************/
 
 .NewsSectionContainer {
     display: flex;
@@ -21,7 +108,7 @@ border: solid brown;
     min-width: 140px;           /***** left column take 60*2 + 20 (140) px *****/
     margin-right: 20px;
 
-border: solid hotpink;
+/* border: solid hotpink; */
 }
 
     .NewsContainer {
@@ -56,7 +143,7 @@ border: solid hotpink;
 
                 grid-gap: 20px;
 
-                background-color: salmon;
+                background-color: #c70000;
             }
                 .largeFocusCardMajorHeadlineBox {
                     grid-column: 1/2;
@@ -65,7 +152,7 @@ border: solid hotpink;
                     height: 67%; */
                     font-size: 18px;
                     color: white;
-            border: solid hotpink;
+    /* border: solid hotpink; */
                 }
                 .largeFocusCardImgBox {
                     grid-column: 2/4;
@@ -74,12 +161,12 @@ border: solid hotpink;
                     height: 67%; */
                     max-width: 100%;
                     overflow: hidden;
-            border: solid lime;
+    /* border: solid lime; */
                 }
                     .largeFocusCardImg {
                         width: 100%;
                         height: 100%;
-            border: solid lightblue;
+    /* border: solid lightblue; */
                     }
 
                 .largeFocusCardMinorHeadlineBox {
@@ -105,7 +192,7 @@ border: solid hotpink;
                         padding: 0 10px 0 5px; /* top right buttom left */
                         font-size: 14px;
                         color: white;
-                border: solid pink;
+        /* border: solid pink; */
                     }
 
 
@@ -121,7 +208,7 @@ border: solid hotpink;
                     width: 100%;
                     height: 33%;
                     overflow: hidden;
-border: solid green;
+/* border: solid green; */
                 }
                     .smallFocusCardImg {
                         width: 100%;
@@ -133,7 +220,7 @@ border: solid green;
                     height: 33%;
                     font-size: 14px;
                     color: black;
-border: solid pink;
+/* border: solid pink; */
                 }
 
 
@@ -154,7 +241,7 @@ border: solid pink;
 
                 display: block;
                 
-border: solid blueviolet;
+/* border: solid blueviolet; */
             }
 
                 .newsItemLine {
@@ -170,7 +257,7 @@ border: solid blueviolet;
                     width: 100%;
                     height: 50%;
                     overflow: hidden;
-border: solid lime;
+/* border: solid lime; */
                 }
                     .mediumCardImg {
                         width: 100%;
